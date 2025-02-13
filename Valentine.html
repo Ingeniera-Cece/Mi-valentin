@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de San Valentín</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #cce7ff;
+            overflow: hidden;
+            font-family: 'Dancing Script', cursive;
+            position: relative;
+        }
+        
+        .clouds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .wrapper {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 180px;
+            height: 270px;
+        }
+
+        .polaroid img {
+            width: 160px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .polaroid .caption {
+            width: 100%;
+            height: 40px;
+            background: white;
+            margin-top: 10px;
+        }
+        
+        .container {
+            position: relative;
+            background-color: #ff99cc;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+        }
+
+        h1 {
+            color: #ffffff;
+            cursor: pointer;
+            transition: 0.5s;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        h1:hover {
+            color: #ff66b2;
+        }
+
+        .message:hover::before {
+            content: "育宏, Gracias por llenar mi vida con tu amor";
+        }
+
+        .message::before {
+            content: "Feliz San Valentín 寶貝 ";
+        }
+        
+        .cloud {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            opacity: 0.9;
+            animation: float 10s infinite linear;
+        }
+
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background-color: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .cloud::before {
+            top: -25px;
+            left: 10px;
+        }
+
+        .cloud::after {
+            top: -20px;
+            right: 10px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="clouds"></div>
+    <div class="wrapper">
+        <div class="polaroid"> 
+            <img id="left-polaroid" src="imagen1.jpg" alt="Imagen 1">
+            <div class="caption"></div>
+        </div>
+    
+        <div class="container">
+            <h1 class="message"></h1>
+            <p>En este día especial, quiero recordarte lo mucho que significas para mí. Gracias por ser parte de mi vida y por llenar mis días de amor y felicidad. ¡Feliz San Valentín, 我爱你!</p>
+        </div>
+    
+        <div class="polaroid">
+            <img id="right-polaroid" src="imagen6.jpg" alt="Imagen 6">
+            <div class="caption"></div>
+        </div>
+    </div>
+    
+    <script>
+        function createCloud() {
+            const cloud = document.createElement("div");
+            cloud.classList.add("cloud");
+            cloud.style.left = Math.random() * 100 + "vw";
+            cloud.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            document.querySelector(".clouds").appendChild(cloud);
+            setTimeout(() => { cloud.remove(); }, 10000);
+        }
+        setInterval(createCloud, 1000);
+    </script>
+
+<script>
+    function cycleImages(polaroidId, start, end) {
+        let index = start;
+        const imgElement = document.getElementById(polaroidId);
+        setInterval(() => {
+            index = index < end ? index + 1 : start;
+            imgElement.style.opacity = 0;
+            setTimeout(() => {
+                imgElement.src = `imagen${index}.jpg`;
+                imgElement.style.opacity = 1;
+            }, 500);
+        }, 4000);
+    }
+
+    cycleImages("left-polaroid", 1, 5);
+    cycleImages("right-polaroid", 6, 10);
+</script>
+</body>
+</html>
